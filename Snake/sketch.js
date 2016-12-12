@@ -1,4 +1,10 @@
 var s;
+var snakeIsDead;
+var songGame;
+var songDie;
+var score;
+var slider;
+var button;
 var scl = 20;
 var food;
 
@@ -6,8 +12,28 @@ function setup() {
     createCanvas(600,600);
     frameRate(10);
     s = new Snake();
+    snakeIsDead = false;
     pickLocation();
+    songGame = loadSound("music/gameplay.mp3", playSong);
+    songDie = loadSound("music/die.mp3");
+    songCollect = loadSound("music/collect.mp3");
+    slider = createSlider(0, 1, 0.5, 0.01);
+    button = createButton("pause");
+    button.mousePressed(toggleSong);
+}
 
+function playSong() {
+    songGame.play();
+}
+
+function toggleSong() {
+    if(songGame.isPlaying()) {
+        songGame.pause();
+        button.html("play");
+    } else {
+        songGame.play();
+        button.html("pause");
+    }
 }
 
 function pickLocation() {
@@ -17,22 +43,48 @@ function pickLocation() {
     food.mult(scl);
 }
 
-function draw() {
-    background(51);
-
-    if (s.eat(food)) {
-        pickLocation();
-    }
-
-    s.death();
-    s.update();
-    s.show();
-    fill(255, 0, 100);
-    rect(food.x, food.y, scl, scl);
+function gameOver() {
+    songGame.stop();
+    songDie.play();
+    str = "GAME OVER\nScore: " + s.total;
     fill(255);
     textAlign(CENTER);
     textSize(12 + scl);
-    text("SCORE\n" + s.total, width/2, height/2);
+    text(str, width/2, height/2);
+}
+
+function draw() {
+    background(51);
+    if (!snakeIsDead) {
+        songGame.setVolume(slider.value());
+        score = s.total;
+        str = "SCORE\n" + score;
+
+        if (s.eat(food)) {
+            songCollect.play();
+            pickLocation();
+        }
+        if(s.death()) {
+            songGame.stop();
+            songDie.play();
+            button.attribute('disabled','true');
+            snakeIsDead = true;
+        }
+        s.update();
+        s.show();
+        fill(255, 0, 100);
+        rect(food.x, food.y, scl, scl);
+        fill(255);
+        textAlign(CENTER);
+        textSize(12 + scl);
+        text(str, width/2, height/2);
+    } else {
+        str = "GAME OVER\n\nFinal Score: " + score;
+        fill(255);
+        textAlign(CENTER);
+        textSize(12 + scl);
+        text(str, width/2, height/2);
+    }
 }
 
 function keyPressed() {
