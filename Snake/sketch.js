@@ -55,6 +55,7 @@ function gameOver() {
 
 function draw() {
     background(51);
+    songGame.loop();
     if (!snakeIsDead) {
         songGame.setVolume(slider.value());
         score = s.total;
