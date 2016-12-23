@@ -5,7 +5,7 @@ var pipes = [];
 function setup() {
     createCanvas(400, 600);
     bird = new Bird;
-    pipes.push(new Pipe());
+    pipes.push(new Pipe(bird));
 }
 
 function draw() {
@@ -28,7 +28,7 @@ function draw() {
     bird.update();
 
     if (frameCount % 100 == 0) {
-        pipes.push(new Pipe());
+        pipes.push(new Pipe(bird));
     }
 }
 

@@ -1,8 +1,10 @@
 // Copyright 2016 Dave Machado
 
-function Pipe() {
-    this.top = random(height/2);
-    this.bottom = random(height/2);
+function Pipe(bird) {
+    var spacing = random(bird.size * 1.5, height / 4);
+    var openingY = random(spacing, height - spacing);
+    this.top = openingY - spacing / 2;
+    this.bottom = height - (openingY + spacing / 2);
     this.x = width;
     this.pipeWidth = 20;
     this.speed = 2;
