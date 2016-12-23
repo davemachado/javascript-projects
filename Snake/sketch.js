@@ -14,16 +14,16 @@ function setup() {
     s = new Snake();
     snakeIsDead = false;
     pickLocation();
-    songGame = loadSound("music/gameplay.mp3", playSong);
-    songDie = loadSound("music/die.mp3");
-    songCollect = loadSound("music/collect.mp3");
     slider = createSlider(0, 1, 0.5, 0.01);
     button = createButton("pause");
     button.mousePressed(toggleSong);
+    songGame.loop();
 }
 
-function playSong() {
-    songGame.play();
+function preload() {
+    songGame = loadSound("music/gameplay.mp3");
+    songDie = loadSound("music/die.mp3");
+    songCollect = loadSound("music/collect.mp3");
 }
 
 function toggleSong() {
