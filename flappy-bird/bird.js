@@ -9,8 +9,16 @@ function Bird() {
     this.velocity = 0;
     this.airResist = 0.9;
 
+    this.passes = function(pipe) {
+        if (this.x > pipe.x + (this.size * 2.6)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     this.show = function() {
-        fill(255);
+        fill(255, 255, 0);
         ellipse(this.x, this.y, this.size, this.size);
     }
 

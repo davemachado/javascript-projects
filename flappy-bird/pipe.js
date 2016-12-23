@@ -31,7 +31,7 @@ function Pipe(bird) {
     }
 
     this.show = function() {
-        fill(255);
+        fill(0, 255, 0);
         if(this.highlight) {
             fill(255, 0, 0);
         }
