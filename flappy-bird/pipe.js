@@ -30,11 +30,12 @@ function Pipe(bird) {
         }
     }
 
-    this.show = function() {
+    this.show = function(r, g, b) {
         fill(0, 255, 0);
         if(this.highlight) {
             fill(255, 0, 0);
         }
+        fill(r,g,b);
         rect(this.x, 0, this.pipeWidth, this.top);
         rect(this.x, height - this.bottom, this.pipeWidth, this.bottom);
     }

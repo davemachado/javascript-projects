@@ -10,8 +10,7 @@ var gameOver = false;
 
 function setup() {
     createCanvas(400, 600);
-    bird = new Bird;
-    pipes.push(new Pipe(bird));
+    bird = new Bird();
 }
 
 function preload() {
@@ -48,6 +47,17 @@ function sleep(miliseconds) {
 function draw() {
     background(0, 150, 255);
 
+    if (frameCount <= 100) {
+        fill(255);
+        textAlign(CENTER);
+        textSize(25);
+        text("Press SPACE to flap wings", width/2, height/2);
+    }
+
+    if (frameCount % 100 == 0 && frameCount > 100) {
+        pipes.push(new Pipe(bird));
+    }
+
     for (var i = pipes.length - 1; i >= 0; i--) {
         pipes[i].show();
         pipes[i].update();
@@ -76,10 +86,6 @@ function draw() {
     bird.show();
     bird.update();
     printScore();
-
-    if (frameCount % 100 == 0) {
-        pipes.push(new Pipe(bird));
-    }
 }
 
 function keyPressed() {
