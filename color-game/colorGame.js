@@ -16,6 +16,8 @@ resetButton.addEventListener("click", function () {
 easyButton.addEventListener("click", function () {
 	isHardMode = false;
 	this.classList.add("selected");
+	this.disabled = true;
+	hardButton.disabled = false;
 	hardButton.classList.remove("selected");
 	reset();
 });
@@ -23,10 +25,13 @@ easyButton.addEventListener("click", function () {
 hardButton.addEventListener("click", function () {
 	isHardMode = true;
 	this.classList.add("selected");
+	this.disabled = true;
+	easyButton.disabled = false;
 	easyButton.classList.remove("selected");
 	reset();
 });
 
+hardButton.disabled = true;
 reset();
 
 for (var i = 0; i < squares.length; i++) {
@@ -90,4 +95,5 @@ function reset() {
 	}
 	h1.style.background = "steelblue  ";
 	resetButton.textContent = "New Colors";
+	messageDisplay.textContent = "";
 }
